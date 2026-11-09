@@ -4,6 +4,8 @@ import AuthorItems from "../components/author/AuthorItems";
 import { Link, useParams } from "react-router-dom";
 import AuthorImage from "../images/author_thumbnail.jpg";
 import axios from "axios";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 const Author = () => {
     const { id } = useParams();
       const [author, setAuthor] = useState(null);
@@ -41,7 +43,56 @@ const Author = () => {
       active = false;
     };
   }, [id]);
-    if (loading) return <p role="status">Loading creator profile…</p>;
+      if (loading) {
+    return (
+      <div id="wrapper">
+        <div className="no-bottom no-top" id="content">
+          <section
+            id="profile_banner"
+            aria-label="Profile banner"
+            className="text-light"
+            style={{ background: `url(${AuthorBanner}) top` }}
+          ></section>
+
+          <section aria-label="Loading creator profile">
+            <div className="container" role="status" aria-busy="true">
+              <div className="row">
+                <div className="col-md-12">
+                  <div className="d_profile de-flex">
+                    <div className="de-flex-col">
+                      <Skeleton circle width={150} height={150} />
+                      <h4><Skeleton width={200} /></h4>
+                      <Skeleton width={120} />
+                      <br />
+                      <Skeleton width={240} />
+                    </div>
+                    <div className="de-flex-col">
+                      <Skeleton width={120} height={20} />
+                      <br />
+                      <Skeleton width={100} height={40} />
+                    </div>
+                  </div>
+                </div>
+
+                {Array.from({ length: 4 }, (_, index) => (
+                  <div className="col-lg-3 col-md-6" key={index}>
+                    <div className="nft__item">
+                      <Skeleton circle width={50} height={50} />
+                      <div className="nft__item_wrap">
+                        <Skeleton width="100%" height={264} />
+                      </div>
+                      <Skeleton width="70%" height={20} />
+                      <Skeleton width="40%" height={16} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    );
+  }
   if (error) return <p role="alert">{error}</p>;
   return (
     <div id="wrapper">

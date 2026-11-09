@@ -10,3 +10,52 @@
 @import "./css/styles/style.css";
 @import "./css/colors/scheme-01.css";
 @import "./css/styles/coloring.css";
+/* Homepage entrance animations */
+@keyframes ultraverse-hero-enter {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#section-hero h6,
+#section-hero h1,
+#section-hero p.lead,
+#section-hero a.btn-main,
+#section-hero img.img-fluid {
+  animation: ultraverse-hero-enter 0.8s ease-out both;
+}
+
+#section-hero h6 {
+  animation-delay: 0.1s;
+}
+
+#section-hero h1 {
+  animation-delay: 0.25s;
+}
+
+#section-hero p.lead {
+  animation-delay: 0.4s;
+}
+
+#section-hero a.btn-main {
+  animation-delay: 0.55s;
+}
+
+#section-hero img.img-fluid {
+  animation-delay: 0.3s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #section-hero h6,
+  #section-hero h1,
+  #section-hero p.lead,
+  #section-hero a.btn-main,
+  #section-hero img.img-fluid {
+    animation: none;
+  }
+}
