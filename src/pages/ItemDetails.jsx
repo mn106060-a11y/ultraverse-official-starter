@@ -4,13 +4,15 @@ import { Link, useParams } from "react-router-dom";
 import AuthorImage from "../images/author_thumbnail.jpg";
 import nftImage from "../images/nftImage.jpg";
 import axios from "axios";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 const ItemDetails = () => {
     const { id } = useParams();
       const [item, setItem] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
     useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
     setItem(null);
     setError("");
 
@@ -42,7 +44,46 @@ const ItemDetails = () => {
       active = false;
     };
   }, [id]);
-  if (loading) return <p role="status">Loading NFT details…</p>;
+    if (loading) {
+    return (
+      <div id="wrapper">
+        <div className="no-bottom no-top" id="content">
+          <section className="mt90 sm-mt-0" aria-label="Loading NFT details">
+            <div className="container" role="status" aria-busy="true">
+              <div className="row">
+                <div className="col-md-6 text-center">
+                  <Skeleton
+                    height={500}
+                    className="mb-sm-30"
+                    borderRadius={8}
+                  />
+                </div>
+                <div className="col-md-6">
+                  <div className="item_info">
+                    <h2><Skeleton width="75%" /></h2>
+                    <div className="item_info_counts">
+                      <Skeleton width={80} height={30} />
+                    </div>
+                    <p><Skeleton count={3} /></p>
+                    <h6>Owner</h6>
+                    <Skeleton circle width={50} height={50} />
+                    <Skeleton width={140} />
+                    <div className="spacer-20"></div>
+                    <h6>Creator</h6>
+                    <Skeleton circle width={50} height={50} />
+                    <Skeleton width={140} />
+                    <div className="spacer-40"></div>
+                    <h6>Price</h6>
+                    <Skeleton width={100} height={32} />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    );
+  }
   if (error) return <p role="alert">{error}</p>;
   return (
     <div id="wrapper">
